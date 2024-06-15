@@ -1,0 +1,27 @@
+version: "3.2"
+services:
+  checker:
+    build: .
+    platform: linux/amd64
+    command: ./AethirCheckerService
+    restart: unless-stopped
+    attach: false
+    tty: false
+    volumes:
+      - wallet:/usr/key
+  cli:
+    build: .
+    platform: linux/amd64
+    command: ./AethirCheckerCLI
+    attach: false
+    tty: true
+    stdin_open: true
+    volumes:
+      - wallet:/usr/key
+    network_mode: "service:checker"
+    depends_on:
+      - checker
+
+volumes:
+  wallet:
+
