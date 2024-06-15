@@ -1,4 +1,4 @@
-# aethir-checker
+# aethir-checker-docker
 Docker composefiles for running Aethir checker node in Linux under Docker
 
 ## Prerequisites
@@ -15,12 +15,15 @@ In Ubuntu 24.04, for example, these are provided by the packages:
 ```docker compose build```
 
 Or, if you need to change your region from the default, eu, (change `na` to your region):
+
 ```docker compose build --build-arg region=na```
 
 
 ## Running
 ```docker compose up -d```
+
 ```docker compose logs cli```
+
 ```docker compose attach cli```
 and set up your wallet. Refer to
 https://docs.aethir.com/checker-nodes-explained/how-to-run-checker-node/checker-client-linux-cli-guide
@@ -28,5 +31,6 @@ https://docs.aethir.com/checker-nodes-explained/how-to-run-checker-node/checker-
 Detach from the cli using `ctrl-p ctrl-q`
 
 Check the logs using:
+
 ```docker compose exec checker tail log/server.log```
 
