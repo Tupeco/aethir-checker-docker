@@ -32,5 +32,5 @@ Detach from the cli using `ctrl-p ctrl-q`
 
 Check the logs using:
 
-```docker compose exec checker tail log/server.log```
+```docker compose logs checker```
 

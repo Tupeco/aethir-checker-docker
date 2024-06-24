@@ -3,12 +3,12 @@ services:
   checker:
     build: .
     platform: linux/amd64
-    command: ./AethirCheckerService
     restart: unless-stopped
     attach: false
     tty: false
     volumes:
       - wallet:/usr/key
+      - log:/aethir-node/log
   cli:
     build: .
     platform: linux/amd64
@@ -24,4 +24,4 @@ services:
 
 volumes:
   wallet:
-
+  log:

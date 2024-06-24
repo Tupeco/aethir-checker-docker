@@ -6,7 +6,9 @@ ADD https://aethir-checker-client-new.s3.ap-southeast-1.amazonaws.com/${region}/
 RUN tar -zxf AethirCheckerCLI-linux-1.0.2.0-${region}.tar.gz
 
 RUN touch  /root/.yes_aethir
-WORKDIR /AethirCheckerCLI-linux-${region}
+RUN mv /AethirCheckerCLI-linux-${region} /aethir-node
+WORKDIR /aethir-node
+ADD run_and_log.sh /aethir-node/
 
-CMD ./AethirCheckerService
+CMD ./run_and_log.sh
 
