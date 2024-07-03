@@ -34,3 +34,7 @@ Check the logs using:
 
 ```docker compose logs checker```
 
+
+## Known issues
+* automatic update probably does not work
+
