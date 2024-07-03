@@ -16,5 +16,5 @@ NODE_PID=($!)
 while [[ ! -r log/server.log ]]; do
 	sleep 1;
 done
-tail -f log/server.log
+tail -F log/server.log
 
