@@ -14,10 +14,6 @@ In Ubuntu 24.04, for example, these are provided by the packages:
 ## Building images
 ```docker compose build```
 
-Or, if you need to change your region from the default, eu, (change `na` to your region):
-
-```docker compose build --build-arg region=na```
-
 
 ## Running
 ```docker compose up -d```

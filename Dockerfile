@@ -1,10 +1,8 @@
 FROM ubuntu
-ARG region=eu
-RUN echo "\n\nUsing region: ${region}\n\n\n"
-RUN apt update && apt install -y ntpdate
-ADD https://checker-mainet-s3.s3.ap-southeast-1.amazonaws.com/AethirCheckerCLI-linux-1.0.2.6.tar.gz /
 RUN mkdir /aethir-node
-RUN tar -zxf AethirCheckerCLI-linux-1.0.2.6.tar.gz -C /aethir-node --strip-components 1
+RUN apt update && apt install -y ntpdate curl jshon
+RUN curl -o /aethir-checker-cli.tar.gz $(curl 'https://app.aethir.com/console-api/client/download-conf?type=4' | jshon -e data -e 0 -e url -u)
+RUN tar -zxf aethir-checker-cli.tar.gz -C /aethir-node --strip-components 1
 
 RUN touch  /root/.yes_aethir
 WORKDIR /aethir-node
