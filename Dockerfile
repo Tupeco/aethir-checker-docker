@@ -1,6 +1,7 @@
 FROM ubuntu
 RUN mkdir /aethir-node
 RUN apt update && apt install -y ntpdate curl jshon
+ARG UPSTREAM_HEAD
 RUN curl -o /aethir-checker-cli.tar.gz $(curl 'https://app.aethir.com/console-api/client/download-conf?type=4' | jshon -e data -e 0 -e url -u)
 RUN tar -zxf aethir-checker-cli.tar.gz -C /aethir-node --strip-components 1
 

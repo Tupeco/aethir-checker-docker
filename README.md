@@ -12,7 +12,19 @@ In Ubuntu 24.04, for example, these are provided by the packages:
 * qemu-user-binfmt
 
 ## Building images
+You can either run:
 ```docker compose build```
+
+or use the build script:
+```./build.sh```
+
+This build script will check the Aethir Checker git repo and invalidate the build cache starting from the point of the package download if the repository HEAD has been updated.
+
+This build cache invalidation can be forced by passing the `--update` parameter:
+```./build.sh --update```
+
+If the above does not work for you, you can skip the build cache entirely:
+```docker compose build --no-cache```
 
 
 ## Running
