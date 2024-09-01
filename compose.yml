@@ -21,6 +21,17 @@ services:
     depends_on:
       - checker
 
+  telegraf:
+    profiles:
+      - with-metrics
+    image: telegraf:alpine
+    ports:
+      - target: 9273
+        published: 9273
+    volumes:
+      - log:/aethir-node-log
+      - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
+
 volumes:
   wallet:
   log:
