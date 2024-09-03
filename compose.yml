@@ -8,9 +8,9 @@ services:
     volumes:
       - wallet:/usr/key
       - log:/aethir-node/log
-    ports:
-      - target: 9273
-        published: 9273
+    networks:
+      - checkernet
+
   cli:
     build: .
     platform: linux/amd64
@@ -24,10 +24,36 @@ services:
     depends_on:
       - checker
 
+  prometheus:
+    profiles:
+      - with-metrics
+    image: prom/prometheus
+    platform: linux
+    restart: unless-stopped
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus:/prometheus
+    networks:
+      - checkernet
+    ports:
+      - 9091:9090
+
+  prometheus-node-exporter:
+    profiles:
+      - with-metrics
+    image: prom/node-exporter
+    restart: unless-stopped
+    network_mode: "service:checker"
+    pid: host
+    command:
+      - '--path.rootfs=/'
+
   telegraf:
     profiles:
       - with-metrics
     image: telegraf:alpine
+    restart: unless-stopped
+    platform: linux
     pid: "service:checker"
     network_mode: "service:checker"
     volumes:
@@ -37,3 +63,7 @@ services:
 volumes:
   wallet:
   log:
+  prometheus:
+
+networks:
+  checkernet:
