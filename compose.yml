@@ -35,8 +35,7 @@ services:
       - prometheus:/prometheus
     networks:
       - checkernet
-    ports:
-      - 9091:9090
+      - prometheusnet
 
   prometheus-node-exporter:
     profiles:
@@ -60,10 +59,28 @@ services:
       - log:/aethir-node-log
       - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
 
+  grafana:
+    profiles:
+      - with-metrics
+    image: grafana/grafana
+    restart: unless-stopped
+    networks:
+      - prometheusnet
+    ports:
+      - 3000:3000
+    volumes:
+      - grafana-storage:/var/lib/grafana
+      - ./grafana-dashboard.json:/dashboards/checkernode.json
+      - ./grafana-dashboard-provider.yml:/etc/grafana/provisioning/dashboards/checkernode.yml
+      - ./grafana-prometheus-datasource.yml:/etc/grafana/provisioning/datasources/prometheus.yml
+
+
 volumes:
   wallet:
   log:
   prometheus:
+  grafana-storage:
 
 networks:
   checkernet:
+  prometheusnet:

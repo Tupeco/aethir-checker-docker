@@ -43,6 +43,14 @@ Check the logs using:
 ```docker compose logs checker```
 
 
+## Monitoring
+```docker compose --profile with-metrics up -d```
+
+This will create a few extra services which provide data for Prometheus and Grafana. Access the graphs by visiting
+```http://localhost:3000``` in your browser. Initial credentials will be `username: admin`, `password: admin`.
+The data source and a sample dashboard should be provisioned and ready out of the box.
+
+
 ## Known issues
 * automatic update probably does not work
 
