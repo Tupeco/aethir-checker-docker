@@ -8,6 +8,9 @@ services:
     volumes:
       - wallet:/usr/key
       - log:/aethir-node/log
+    ports:
+      - target: 9273
+        published: 9273
   cli:
     build: .
     platform: linux/amd64
@@ -25,9 +28,8 @@ services:
     profiles:
       - with-metrics
     image: telegraf:alpine
-    ports:
-      - target: 9273
-        published: 9273
+    pid: "service:checker"
+    network_mode: "service:checker"
     volumes:
       - log:/aethir-node-log
       - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
