@@ -26,7 +26,7 @@ services:
 
   prometheus:
     profiles:
-      - with-metrics
+      - with-prometheus
     image: prom/prometheus
     platform: linux
     restart: unless-stopped
@@ -36,10 +36,12 @@ services:
     networks:
       - checkernet
       - prometheusnet
+    ports:
+      - 39090:9090
 
   prometheus-node-exporter:
     profiles:
-      - with-metrics
+      - with-prometheus
     image: prom/node-exporter
     restart: unless-stopped
     network_mode: "service:checker"
@@ -49,7 +51,7 @@ services:
 
   telegraf:
     profiles:
-      - with-metrics
+      - with-prometheus
     image: telegraf:alpine
     restart: unless-stopped
     platform: linux
@@ -61,11 +63,13 @@ services:
 
   grafana:
     profiles:
-      - with-metrics
+      - with-grafana
     image: grafana/grafana
     restart: unless-stopped
     networks:
       - prometheusnet
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     ports:
       - 3000:3000
     volumes:
@@ -83,4 +87,6 @@ volumes:
 
 networks:
   checkernet:
+    driver_opts:
+      com.docker.network.bridge.name: br-checker
   prometheusnet:

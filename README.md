@@ -44,11 +44,15 @@ Check the logs using:
 
 
 ## Monitoring
-```docker compose --profile with-metrics up -d```
+```docker compose --profile with-grafana up -d```
 
 This will create a few extra services which provide data for Prometheus and Grafana. Access the graphs by visiting
 ```http://localhost:3000``` in your browser. Initial credentials will be `username: admin`, `password: admin`.
 The data source and a sample dashboard should be provisioned and ready out of the box.
+
+
+If you just want prometheus, e.g. for federation on the host, use
+```docker compose --profile with-prometheus up -d```
 
 
 ## Known issues
